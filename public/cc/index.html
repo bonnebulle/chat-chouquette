@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.io Chat chouquette</title>
+<!--     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet" /> -->
+<!--     <link href="/css/style.css" rel="stylesheet" /> -->
+    <link href="./css/style-cc.css" rel="stylesheet" />
+</head>
+<span class="accelerationgraphique"></span>
+
+
+<body>
+
+<section>
+<!-- The Images -->
+<span id="wrap-hs" onclick="randme();"> 
+          <ul id="hs-wrapper0" class="in-action" style="background: url('./img/choose-your-animal.gif') repeat left top;">
+              <!-- Images go here -->
+            </ul>
+          </span>            
+
+</section>
+<div id="counterimg"></div>
+
+
+<!-- Third Party Dependencies -->
+<script src="/js/jquery.js"></script>
+<!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script> -->
+<!-- <script type="text/javascript" src="/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+ -->
+
+<!-- Socket.io -->
+<script src="/socket.io/socket.io.js"></script>
+
+<!-- Our app.js file -->
+<script type="text/javascript" src="./js/app-cc.js"></script>
+<!-- <script type="text/javascript" src="/js/upload.js"></script>
+ -->
+<script src="./js/jquery.tinysort.js"></script>
+
+<script language="JavaScript">
+function randme() {
+  $('ul#hs-wrapper0 li').tsort({order:'rand'});
+  
+  var title = $( "ul#hs-wrapper0" ).attr( "class" );
+  $( ".classon" ).text( title ).removeClass('inactiv');
+}
+window.ondragstart = function() { return false; } 
+
+
+
+    $(function nimbber(){
+      var n = $( ".list-group-images" ).length;
+      $( "#counterimg" ).text( "Actuellement : " + n + " images...").css({'color': '#FFF'});
+      setTimeout(nimbber, 100)
+    });
+  </script>
+
+
+
+
+   <script>
+            socket.on('goods', function(goods) {
+                console.log('–OK– ' + goods);
+            });
+                        socket.on('images', function(images) {
+                console.log('Image ' + images);
+            });
+
+            socket.on('message', function(message) {
+                console.log('(: ' + message);
+            });
+
+            socket.on('newfile', function(message) {
+                console.log('-- ' + message);
+                $("#activ").addClass('activ');
+                  setTimeout(function(){ 
+                      $('#activ').removeClass('activ');
+                  },300);
+            });
+
+
+
+            socket.on('newfiledone', function(newfiledone) {
+                console.log('! MERCI ' + newfiledone + ' envoyé !');
+            });
+
+            // socket.on('message', function(messfile) {
+            //     console.log('Fichiers sur écoute');
+            // })
+
+            // socket.on('message', function(messfilenot) {
+            //     console.log('Fichiers NON sur écoute');
+            // })
+
+   socket.on('goods-added', function(data) {
+         console.log('—> '+ data.goods +' —> good');
+    });
+
+
+   socket.on('images-added', function(data) {
+         console.log('--> '+ data.images +' <--');
+    });
+
+
+
+   socket.on('message-added', function(data) {
+         console.log('!!! '+ data.name +' : ' + data.message +' !!!');
+
+            var n = noty({
+            text: ''+ data.name +' - ' + data.message +'',
+            layout: 'topCenter',
+            maxVisible: 1,
+            timeout: 4500, // delay for closing event. Set false for sticky notifications
+            theme: 'relax', // or 'relax'
+                  animation: {
+                      open: {height: 'toggle'}, // or Animate.css class names like: 'animated bounceInLeft'
+                      close: {height: 'toggle'}, // or Animate.css class names like: 'animated bounceOutLeft'
+                      easing: '',
+                      speed: 1 // opening & closing animation speed
+                  }
+            });
+    });
+
+
+   </script>
+
+
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.io Messages</title>
+<!--     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet" /> -->
+<!--     <link href="/css/style.css" rel="stylesheet" /> -->
+    <link href="./css/style-cc.css" rel="stylesheet" />
+</head>
+<span class="accelerationgraphique"></span>
+
+
+<body>
+
+<section>
+<!-- The Images -->
+<span id="wrap-hs" onclick="randme();"> 
+          <ul id="hs-wrapper0" class="in-action" style="background: url('./img/choose-your-animal.gif') repeat left top;">
+              <!-- Images go here -->
+            </ul>
+          </span>            
+
+</section>
+<div id="counterimg"></div>
+
+
+<!-- Third Party Dependencies -->
+<script src="/js/jquery.js"></script>
+<!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script> -->
+<!-- <script type="text/javascript" src="/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+ -->
+
+<!-- Socket.io -->
+<script src="/socket.io/socket.io.js"></script>
+
+<!-- Our app.js file -->
+<script type="text/javascript" src="./js/app-cc.js"></script>
+<!-- <script type="text/javascript" src="/js/upload.js"></script>
+ -->
+<script src="./js/jquery.tinysort.js"></script>
+
+<script language="JavaScript">
+function randme() {
+  $('ul#hs-wrapper0 li').tsort({order:'rand'});
+  
+  var title = $( "ul#hs-wrapper0" ).attr( "class" );
+  $( ".classon" ).text( title ).removeClass('inactiv');
+}
+window.ondragstart = function() { return false; } 
+
+
+
+    $(function nimbber(){
+      var n = $( ".list-group-images" ).length;
+      $( "#counterimg" ).text( "Actuellement : " + n + " images...").css({'color': '#FFF'});
+      setTimeout(nimbber, 100)
+    });
+  </script>
+
+
+
+
+   <script>
+            socket.on('images', function(images) {
+                console.log('Image ' + images);
+            });
+
+            socket.on('message', function(message) {
+                console.log('(: ' + message);
+            });
+
+            socket.on('newfile', function(message) {
+                console.log('-- ' + message);
+                $("#activ").addClass('activ');
+                  setTimeout(function(){ 
+                      $('#activ').removeClass('activ');
+                  },300);
+            });
+
+
+
+            socket.on('newfiledone', function(newfiledone) {
+                console.log('! MERCI ' + newfiledone + ' envoyé !');
+            });
+
+            // socket.on('message', function(messfile) {
+            //     console.log('Fichiers sur écoute');
+            // })
+
+            // socket.on('message', function(messfilenot) {
+            //     console.log('Fichiers NON sur écoute');
+            // })
+
+
+
+   socket.on('images-added', function(data) {
+         console.log('--> '+ data.images +' <--');
+    });
+
+
+
+   socket.on('message-added', function(data) {
+         console.log('!!! '+ data.name +' : ' + data.message +' !!!');
+
+            var n = noty({
+            text: ''+ data.name +' - ' + data.message +'',
+            layout: 'topCenter',
+            maxVisible: 1,
+            timeout: 4500, // delay for closing event. Set false for sticky notifications
+            theme: 'relax', // or 'relax'
+                  animation: {
+                      open: {height: 'toggle'}, // or Animate.css class names like: 'animated bounceInLeft'
+                      close: {height: 'toggle'}, // or Animate.css class names like: 'animated bounceOutLeft'
+                      easing: '',
+                      speed: 1 // opening & closing animation speed
+                  }
+            });
+    });
+
+
+   </script>
+
+
+</body>
+</html>

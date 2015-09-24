@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.io Admin</title>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+</head>
+
+
+
+<body>
+      <div id="thank-you" style="display: none;" class="well row">
+              <span class="col-lg-8 col-offset-2 thx">
+              Merci :)
+              </span>
+      </div>
+
+  <form id="create-goods" class="well row">
+      <fieldset class="col-lg-8 center">
+            <legend>Good</legend>
+                  <ul id="goods" class="list-group">
+                      
+                  </ul>
+        
+            <input type="submit" value="Create Good" class="btn btn-default col-lg-12 add-mess-submit" id="i_submitgoods" />
+
+         
+    </fieldset>
+
+</form>
+
+
+<div class="col-lg-8 col-offset-2 row">
+      <ul id="goodsvalid" class="list-group"></ul>
+</div>
+
+<!-- 
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+ -->
+
+
+<!-- multiple="multiple" -->
+  <!-- The form -->
+  <form id="create-message" class="well row">
+    <fieldset class="col-lg-8 col-offset-2">
+        <legend>Socket.io Messages</legend>
+        <span class="field1">
+          <input type="text" placeholder="Name" id="name" name="name" class="col-lg-12" />
+        </span>
+        <span class="field">
+          <textarea placeholder="Message" id="message" name="message" class="col-lg-12"></textarea>
+        </span>
+        <span class="action">
+              <input type="submit" value="Create Message" class="btn btn-default col-lg-12 add-mess-submit" />
+        </span>
+    </fieldset>
+  </form>
+
+<!-- The Messages -->
+<div class="col-lg-8 col-offset-2 row">
+  <ul id="messages" class="list-group">
+    <!-- Messages go here -->
+  </ul>
+</div>
+
+  <div id="activ">!</div>
+
+<!-- Third Party Dependencies -->
+<script src="/js/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+
+
+<!-- Socket.io -->
+        <script src="/socket.io/socket.io.js"></script>
+
+<!-- Our app.js file -->
+<script type="text/javascript" src="/admin/js/app-admin.js"></script>
+<!-- <script type="text/javascript" src="/js/upload.js"></script>
+ -->
+
+
+   <script>
+            socket.on('goods', function(goods) {
+                console.log('Good ' + goods);
+            });
+
+            socket.on('images', function(images) {
+                console.log('Image ' + images);
+            });
+
+            socket.on('message', function(message) {
+                console.log('(: ' + message);
+            });
+
+            socket.on('newfile', function(message) {
+                console.log('-- ' + message);
+                $("#activ").addClass('activ');
+                  setTimeout(function(){ 
+                      $('#activ').removeClass('activ');
+                  },300);
+            });
+
+
+
+            socket.on('newfiledone', function(newfiledone) {
+                console.log('! MERCI ' + newfiledone + ' envoyé !');
+            });
+
+            // socket.on('message', function(messfile) {
+            //     console.log('Fichiers sur écoute');
+            // })
+
+            // socket.on('message', function(messfilenot) {
+            //     console.log('Fichiers NON sur écoute');
+            // })
+
+
+   socket.on('goods-added', function(data) {
+         console.log('--> '+ data.goods +' <--');
+    });
+
+   socket.on('images-added', function(data) {
+         console.log('--> '+ data.images +' <--');
+    });
+
+
+
+   socket.on('message-added', function(data) {
+         console.log('!!! '+ data.name +' : ' + data.message +' !!!');
+
+            var n = noty({
+            text: ''+ data.name +' - ' + data.message +'',
+            layout: 'topCenter',
+            maxVisible: 1,
+            timeout: 4500, // delay for closing event. Set false for sticky notifications
+            theme: 'relax', // or 'relax'
+                  animation: {
+                      open: {height: 'toggle'}, // or Animate.css class names like: 'animated bounceInLeft'
+                      close: {height: 'toggle'}, // or Animate.css class names like: 'animated bounceOutLeft'
+                      easing: '',
+                      speed: 1 // opening & closing animation speed
+                  }
+            });
+    });
+
+// $(document).ready(function() {
+//     $('#i_submit').bind("click",function() { 
+//         var imgVal = $('#i_file').val(); 
+//         if(imgVal=='') 
+//         { 
+//             alert("empty input file"); 
+// //$(this).addClass('invisible');
+//         } 
+//         return false; 
+
+//     }); 
+// });
+
+   </script>
+
+
+
+</body>
+</html>
