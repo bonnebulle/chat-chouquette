@@ -1,3 +1,6 @@
+# MOVED !   
+https://gitlab.com/bonnebulle/nodechouquette   
+
 # chat-chouquette<br>
 Test into node.js<br>
 My first try for a very speed slideshow<br>
